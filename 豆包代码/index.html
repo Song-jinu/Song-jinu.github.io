@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的家庭 - 成员信息</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+        }
+
+        /* 全局背景：星空雪山 */
+        body {
+            background: #0f172a;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255,255,255,0.05) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05) 0%, transparent 20%),
+                url('https://picsum.photos/id/1036/1920/1080');
+            background-size: cover;
+            background-attachment: fixed;
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        /* 顶部导航栏 */
+        .navbar {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar-left {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+        .navbar-right {
+            display: flex;
+            gap: 25px;
+        }
+        .navbar-right a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s;
+        }
+        .navbar-right a:hover {
+            color: #38bdf8;
+        }
+        .navbar-right a.active {
+            color: #38bdf8;
+            border-bottom: 2px solid #38bdf8;
+            padding-bottom: 8px;
+        }
+
+        /* 主容器：侧边栏 + 内容区 */
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            gap: 30px;
+        }
+
+        /* 侧边栏 */
+        .sidebar {
+            width: 280px;
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            height: fit-content;
+        }
+        .sidebar-avatar {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .sidebar-avatar img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #38bdf8;
+        }
+        .sidebar-name {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .sidebar-desc {
+            text-align: center;
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+        .sidebar-info {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+        .sidebar-btn {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        /* 内容区：家庭成员卡片 */
+        .content {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+        .family-card {
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+        .family-card:hover {
+            transform: translateY(-5px);
+            border-color: #38bdf8;
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.2);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .card-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid #38bdf8;
+        }
+        .card-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .card-role {
+            font-size: 13px;
+            color: #38bdf8;
+        }
+        .card-info {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-info i {
+            color: #38bdf8;
+            width: 16px;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+            }
+            .content {
+                grid-template-columns: 1fr;
+            }
+            .navbar-right {
+                gap: 15px;
+                font-size: 11px;
+            }
+        }
+    
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <div class="navbar">
+        <div class="navbar-left">个人简历</div>
+        <div class="navbar-right">
+            <a href="#" class="active">主页</a>
+            <a href="./项目板块.html">项目</a>
+            <a href="./经验板块.html">经验</a>
+            <a href="./联系板块.html">联系</a>
+            <a href="./博客板块.html">博客</a>
+            <a href="./其他板块.html">其他</a>
+            <i class="fas fa-moon" style="color: #94a3b8;"></i>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 侧边栏 -->
+        <div class="sidebar">
+            <div class="sidebar-avatar">
+                <img src="https://raw.githubusercontent.com/Song-jinu/image-host/refs/heads/main/caed1c1023b8dc5e0c2616c015cc23a6.jpg" alt="我">
+            </div>
+            <div class="sidebar-name">赵遵堡的个人简历</div>
+            <div class="sidebar-desc">其实，我的愿望是世界和平！</div>
+            <div class="sidebar-info">毕业院校：武汉理工大学</div>
+            <div class="sidebar-info">所在城市：武汉</div>
+            <div class="sidebar-info">年级：大一</div>
+            <button class="sidebar-btn">联系我</button>
+        </div>
+
+        <!-- 内容区：家庭成员卡片 -->
+        <div class="content" >
+            <!-- 爸爸 -->
+            <div class="family-card">
+                <div class="card-header">
+                    <img src="https://picsum.photos/id/1005/200/200" alt="爸爸" class="card-avatar dad">
+                    <div>
+                        <a href="./作品 第二页 爸爸2.0 .html" style="color: white;">赵石磊</a>
+                        <div class="card-role">父亲 / 爸爸</div>
+                    </div>
+                </div>
+                <div class="card-info"><i class="fas fa-birthday-cake"></i> 1984年12月13日</div>
+                <div class="card-info"><i class="fas fa-phone"></i> 135****5969</div>
+                <div class="card-info"><i class="fas fa-briefcase"></i> 工程师</div>
+                <div class="card-info"><i class="fas fa-heart"></i> 喝茶，抽烟</div>
+            </div>
+
+            <!-- 妈妈 -->
+            <div class="family-card">
+                <div class="card-header">
+                    <img src="https://raw.githubusercontent.com/Song-jinu/image-host/refs/heads/main/df4dc83b6378997c252ea3325b3300dc.jpg" alt="妈妈" class="card-avatar mum">
+                    <div>
+                        <a href="./作品 第三页 妈妈2.0 .html" style="color: white;">边巧利</a>
+                        <div class="card-role">母亲 / 妈妈</div>
+                    </div>
+                </div>
+                <div class="card-info"><i class="fas fa-birthday-cake"></i> 1986年04月25日</div>
+                <div class="card-info"><i class="fas fa-phone"></i> 134****8154</div>
+                <div class="card-info"><i class="fas fa-briefcase"></i> 幼师</div>
+                <div class="card-info"><i class="fas fa-heart"></i> 烹饪、养花、追剧</div>
+            </div>
+
+            <!-- 我 -->
+            <div class="family-card">
+                <div class="card-header">
+                    <img src="https://raw.githubusercontent.com/Song-jinu/image-host/refs/heads/main/caed1c1023b8dc5e0c2616c015cc23a6.jpg" alt="我" class="card-avatar bro">
+                    <div>
+                        <a href="./作品 第四页 哥哥2.0.html" style="color: white;">赵遵堡</a>
+                        <div class="card-role">儿子 / 我</div>
+                    </div>
+                </div>
+                <div class="card-info"><i class="fas fa-birthday-cake"></i> 2007年07月17日</div>
+                <div class="card-info"><i class="fas fa-phone"></i> 130****9394</div>
+                <div class="card-info"><i class="fas fa-briefcase"></i> 大学生</div>
+                <div class="card-info"><i class="fas fa-heart"></i>金融，区块链，编程，篮球 </div>
+            </div>
+
+            <!-- 妹妹 -->
+            <div class="family-card">
+                <div class="card-header">
+                    <img src="https://raw.githubusercontent.com/Song-jinu/image-host/refs/heads/main/620de8e51bfa24cf0285d2ad7ee1a1b6.jpg" alt="妹妹" class="card-avatar sister">
+                    <div>
+                        <a href="作品 第五页 妹妹2.0.html" style="color: white;">赵若彤</a>
+                        <div class="card-role">女儿 / 妹妹</div>
+                    </div>
+                </div>
+                <div class="card-info"><i class="fas fa-birthday-cake"></i> 2014年09月13日</div>
+                <div class="card-info"><i class="fas fa-phone"></i> 136****6666</div>
+                <div class="card-info"><i class="fas fa-briefcase"></i> 小学生</div>
+                <div class="card-info"><i class="fas fa-heart"></i> 吃零食，打游戏，读书</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
